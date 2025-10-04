@@ -1,0 +1,15 @@
+# --- Rutas de Comandos ---
+# La letra de la unidad (ej. F:) debe estar montada manualmente o por otros medios.
+path1=F:\CTI-PC\SkyTrfData.exe
+path2=F:\CTI-PC\Sky.exe
+
+# --- Configuración del Token ---
+prefix=SKYGENESYSCLOUD#;
+suffix=;#GENESYSCLOUDSKY
+
+# --- Nuevas Opciones de Monitoreo ---
+# Tiempo máximo en segundos que la aplicación esperará por el token.
+monitor_timeout_seconds=600
+
+# Longitud mínima que debe tener el token para ser considerado válido.
+min_token_length=50
