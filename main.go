@@ -218,11 +218,21 @@ func executeFinalCommand(config Config) {
 
 func loadConfig(filename string) (Config, error) {
 	var config Config
-	exePath, _ := os.Executable()
-	configPath := filepath.Join(filepath.Dir(exePath), filename)
+	var configPath string
+
+	// NUEVO: Comprobar si 'filename' ya es una ruta absoluta.
+	if filepath.IsAbs(filename) {
+		// Si es absoluta (como en los tests), usarla directamente.
+		configPath = filename
+	} else {
+		// Si no (uso normal), buscarla junto al ejecutable.
+		exePath, _ := os.Executable()
+		configPath = filepath.Join(filepath.Dir(exePath), filename)
+	}
+
 	file, err := os.Open(configPath)
 	if err != nil {
-		return config, fmt.Errorf("no se pudo encontrar '%s'", filename)
+		return config, fmt.Errorf("no se pudo encontrar '%s'", configPath)
 	}
 	defer file.Close()
 
