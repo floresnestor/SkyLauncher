@@ -3,9 +3,11 @@ package main
 
 import (
 	"bufio"
+	"crypto/tls"
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -17,7 +19,7 @@ import (
 	"github.com/gen2brain/beeep"
 	"github.com/getlantern/systray"
 	"github.com/lxn/walk"
-	. "github.com/lxn/walk/declarative"
+	decl "github.com/lxn/walk/declarative" // <-- MODIFICADO
 	"golang.design/x/clipboard"
 )
 
@@ -34,7 +36,6 @@ type Config struct {
 	MinTokenLength               int
 }
 
-// Variables para la GUI de log
 var (
 	logWindow   *walk.MainWindow
 	logView     *walk.TextEdit
@@ -93,6 +94,15 @@ func runLauncher() {
 	}
 	log.Println("Acceso a los ejecutables verificado correctamente.")
 
+	systray.SetTooltip("Verificando conexión de red...")
+	if !isURLAccessible() {
+		log.Println("Fallo en el chequeo de conectividad a la URL. El servidor no es accesible.")
+		beeep.Alert("Error de Red", "No se puede acceder al concentrador desplegado dentro del banco. Verifique su conexión de red o VPN.", "")
+		systray.Quit()
+		return
+	}
+	log.Println("Chequeo de conectividad a la URL exitoso.")
+
 	log.Println("Lanzando aplicación de path1 en segundo plano...")
 	if err := launchDetached(config.Path1); err != nil {
 		log.Printf("Error al lanzar path1: %v", err)
@@ -101,7 +111,6 @@ func runLauncher() {
 		return
 	}
 	log.Println("Aplicación de path1 lanzada.")
-	systray.SetTooltip("Verificando conexión de red...")
 
 	clipboard.Write(clipboard.FmtText, []byte(initialClipboardState))
 	log.Printf("Portapapeles inicializado con la bandera: '%s'", initialClipboardState)
@@ -116,16 +125,40 @@ func runLauncher() {
 	systray.Quit()
 }
 
+func isURLAccessible() bool {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	client := &http.Client{
+		Transport: tr,
+		Timeout:   8 * time.Second,
+	}
+	req, err := http.NewRequest("GET", remoteURL, nil)
+	if err != nil {
+		log.Printf("Error al crear la petición de chequeo de red: %v", err)
+		return false
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		log.Printf("Fallo al contactar la URL: %v", err)
+		return false
+	}
+	resp.Body.Close()
+	return true
+}
+
 func checkPathsExist(config Config) error {
 	log.Printf("Verificando acceso a: %s", config.Path1)
 	if _, err := os.Stat(config.Path1); os.IsNotExist(err) {
-		return fmt.Errorf("no se pudo encontrar el archivo de path1: %s. Asegúrese de que la unidad de red esté montada.", config.Path1)
+		return fmt.Errorf("no se pudo encontrar el archivo de path1: %s. Asegúrese de que la unidad de red esté montada", config.Path1)
 	}
 
 	if config.Path2 != "" {
 		log.Printf("Verificando acceso a: %s", config.Path2)
 		if _, err := os.Stat(config.Path2); os.IsNotExist(err) {
-			return fmt.Errorf("no se pudo encontrar el archivo de path2: %s.", config.Path2)
+			return fmt.Errorf("no se pudo encontrar el archivo de path2: %s", config.Path2)
 		}
 	}
 	return nil
@@ -231,9 +264,6 @@ func loadConfig(filename string) (Config, error) {
 	return config, nil
 }
 
-// --- El resto de las funciones de soporte (GUI y auxiliares) ---
-// SE ELIMINARON LAS DECLARACIONES VACÍAS Y DUPLICADAS DE AQUÍ
-
 type writerFunc func(p []byte) (n int, err error)
 
 func (wf writerFunc) Write(p []byte) (n int, err error) { return wf(p) }
@@ -267,15 +297,16 @@ func setupLogging() {
 	log.Printf("Iniciando aplicación. El log se encuentra en: %s", fullLogPath)
 }
 
+// MODIFICADO: Se añade el prefijo 'decl.' a todos los widgets
 func showLogWindow() {
 	once.Do(func() {
-		MainWindow{
+		decl.MainWindow{
 			AssignTo: &logWindow,
 			Title:    "Log en Tiempo Real - Genesys Sky Launcher",
-			Size:     Size{Width: 800, Height: 600},
-			Layout:   VBox{},
-			Children: []Widget{
-				TextEdit{
+			Size:     decl.Size{Width: 800, Height: 600},
+			Layout:   decl.VBox{},
+			Children: []decl.Widget{
+				decl.TextEdit{
 					AssignTo: &logView,
 					ReadOnly: true,
 					VScroll:  true,

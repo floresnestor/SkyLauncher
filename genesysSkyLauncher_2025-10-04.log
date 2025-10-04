@@ -1,0 +1,59 @@
+2025/10/04 01:18:40 ==================================================
+2025/10/04 01:18:40 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:18:40 Configuración cargada exitosamente.
+2025/10/04 01:18:40 Verificando acceso a: F:\CTI-PC\SkyTrfData.exe
+2025/10/04 01:18:40 Error de acceso a rutas: no se pudo encontrar el archivo de path1: F:\CTI-PC\SkyTrfData.exe. Asegúrese de que la unidad de red esté montada.
+2025/10/04 01:18:40 Aplicación cerrada.
+2025/10/04 01:20:01 ==================================================
+2025/10/04 01:20:01 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:20:01 Configuración cargada exitosamente.
+2025/10/04 01:20:01 Verificando acceso a: F:\CTI-PC\SkyTrfData.exe
+2025/10/04 01:20:01 Error de acceso a rutas: no se pudo encontrar el archivo de path1: F:\CTI-PC\SkyTrfData.exe. Asegúrese de que la unidad de red esté montada.
+2025/10/04 01:20:01 Aplicación cerrada.
+2025/10/04 01:20:10 ==================================================
+2025/10/04 01:20:10 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:20:10 Configuración cargada exitosamente.
+2025/10/04 01:20:10 Verificando acceso a: F:\CTI-PC\SkyTrfData.exe
+2025/10/04 01:20:10 Error de acceso a rutas: no se pudo encontrar el archivo de path1: F:\CTI-PC\SkyTrfData.exe. Asegúrese de que la unidad de red esté montada.
+2025/10/04 01:20:10 Aplicación cerrada.
+2025/10/04 01:20:19 ==================================================
+2025/10/04 01:20:19 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:20:19 Configuración cargada exitosamente.
+2025/10/04 01:20:19 Verificando acceso a: F:\CTI-PC\SkyTrfData.exe
+2025/10/04 01:20:19 Error de acceso a rutas: no se pudo encontrar el archivo de path1: F:\CTI-PC\SkyTrfData.exe. Asegúrese de que la unidad de red esté montada.
+2025/10/04 01:20:19 Aplicación cerrada.
+2025/10/04 01:20:41 ==================================================
+2025/10/04 01:20:41 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:20:41 Configuración cargada exitosamente.
+2025/10/04 01:20:41 Verificando acceso a: F:\CTI-PC\SkyTrfData.exe
+2025/10/04 01:20:41 Error de acceso a rutas: no se pudo encontrar el archivo de path1: F:\CTI-PC\SkyTrfData.exe. Asegúrese de que la unidad de red esté montada.
+2025/10/04 01:20:41 Aplicación cerrada.
+2025/10/04 01:24:59 ==================================================
+2025/10/04 01:24:59 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:24:59 Configuración cargada exitosamente.
+2025/10/04 01:24:59 Verificando acceso a: C:\Program Files\PuTTY\putty.exe
+2025/10/04 01:24:59 Verificando acceso a: C:\Program Files\PuTTY\putty.exe
+2025/10/04 01:24:59 Acceso a los ejecutables verificado correctamente.
+2025/10/04 01:24:59 Lanzando aplicación de path1 en segundo plano...
+2025/10/04 01:24:59 Aplicación de path1 lanzada.
+2025/10/04 01:24:59 Portapapeles inicializado con la bandera: 'ESTADOINICIAL'
+2025/10/04 01:24:59 Navegador Edge lanzado.
+2025/10/04 01:24:59 Comenzando monitoreo del portapapeles (Timeout: 600 segundos, Longitud Mínima: 50)
+2025/10/04 01:30:10 ==================================================
+2025/10/04 01:30:10 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:30:10 Configuración cargada exitosamente.
+2025/10/04 01:30:10 Verificando acceso a: C:\Program Files\PuTTY\putty.exe
+2025/10/04 01:30:10 Verificando acceso a: C:\Program Files\PuTTY\putty.exe
+2025/10/04 01:30:10 Acceso a los ejecutables verificado correctamente.
+2025/10/04 01:30:10 Fallo al contactar la URL: Get "https://genesys.bancopatagonia.net.ar/GenesysNotify/genesysCloud.html": dial tcp: lookup genesys.bancopatagonia.net.ar: no such host
+2025/10/04 01:30:10 Fallo en el chequeo de conectividad a la URL. El servidor no es accesible.
+2025/10/04 01:30:10 Aplicación cerrada.
+2025/10/04 01:40:07 ==================================================
+2025/10/04 01:40:07 Iniciando aplicación. El log se encuentra en: c:\Users\FLN78637\Desktop\repos\SkyLauncher\genesysSkyLauncher_2025-10-04.log
+2025/10/04 01:40:07 Configuración cargada exitosamente.
+2025/10/04 01:40:07 Verificando acceso a: C:\Program Files\PuTTY\putty.exe
+2025/10/04 01:40:07 Verificando acceso a: C:\Program Files\PuTTY\putty.exe
+2025/10/04 01:40:07 Acceso a los ejecutables verificado correctamente.
+2025/10/04 01:40:07 Fallo al contactar la URL: Get "https://genesys.bancopatagonia.net.ar/GenesysNotify/genesysCloud.html": dial tcp: lookup genesys.bancopatagonia.net.ar: no such host
+2025/10/04 01:40:07 Fallo en el chequeo de conectividad a la URL. El servidor no es accesible.
+2025/10/04 01:40:07 Aplicación cerrada.
