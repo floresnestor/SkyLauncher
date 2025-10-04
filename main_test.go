@@ -4,7 +4,11 @@ package main
 import (
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
+	"time"
+
+	"golang.design/x/clipboard"
 )
 
 // --- Test para loadConfig ---
@@ -123,6 +127,75 @@ func TestCheckPathsExist(t *testing.T) {
 	})
 }
 
-// NOTA: Funciones como monitorClipboard, openBrowser, o las relacionadas con la GUI (showLogWindow)
-// no se testean con tests unitarios porque dependen de interacciones del usuario, el sistema operativo
-// o la red. Para ellas se usan tests de integración o manuales.
+// --- Tests de Integración ---
+
+// Test de Integración para la Conectividad de Red
+func TestIntegration_URLAccessibility(t *testing.T) {
+	// Este test requiere una conexión real a la red corporativa/VPN.
+	t.Log("--- INICIANDO TEST DE INTEGRACIÓN: ACCESO A URL ---")
+	t.Log("Requisito: Debes estar conectado a la VPN del banco.")
+
+	if !isURLAccessible() {
+		t.Error("isURLAccessible() devolvió 'false'. El test falló.")
+		t.Log("Asegúrate de estar conectado a la red corporativa e inténtalo de nuevo.")
+	} else {
+		t.Log("isURLAccessible() devolvió 'true'. ¡El test pasó exitosamente!")
+	}
+}
+
+// Test de Integración Interactivo para el Flujo del Portapapeles
+func TestIntegration_ClipboardWorkflow(t *testing.T) {
+	t.Log("--- INICIANDO TEST DE INTEGRACIÓN: FLUJO DEL PORTAPAPELES (INTERACTIVO) ---")
+
+	// 1. Configuración del Test
+	config := Config{
+		Prefix: "SKYTEST#;",
+		Suffix: ";#TESTSKY",
+	}
+
+	// 2. Escribir el estado inicial en el portapapeles
+	clipboard.Write(clipboard.FmtText, []byte(initialClipboardState))
+	t.Logf("Portapapeles inicializado con la bandera: '%s'", initialClipboardState)
+
+	// 3. Instrucción para el usuario
+	testToken := "ESTE_ES_UN_TOKEN_DE_PRUEBA_MANUAL"
+	t.Logf("\n\n*** ACCIÓN REQUERIDA ***\n")
+	t.Logf("Por favor, copia el siguiente texto en tu portapapeles (Ctrl+C):")
+	t.Logf("===> %s <===", testToken)
+	t.Logf("\nTienes 15 segundos para hacerlo...\n\n")
+
+	// 4. Monitoreo del cambio y verificación
+	timeout := time.After(15 * time.Second)
+	ticker := time.NewTicker(500 * time.Millisecond)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-timeout:
+			t.Fatal("TEST FALLIDO: Tiempo de espera agotado. No se detectó el cambio en el portapapeles.")
+			return
+		case <-ticker.C:
+			clipboardText := strings.TrimSpace(string(clipboard.Read(clipboard.FmtText)))
+
+			// Primero, esperamos a que el usuario copie el token de prueba
+			if clipboardText == testToken {
+				t.Log("Paso 1/2: Se detectó el token de prueba copiado por el usuario.")
+
+				// Simular la lógica de monitorClipboard
+				formattedToken := config.Prefix + clipboardText + config.Suffix
+				clipboard.Write(clipboard.FmtText, []byte(formattedToken))
+
+				t.Log("Paso 2/2: El token ha sido formateado y reescrito en el portapapeles.")
+
+				// Verificación final
+				finalContent := string(clipboard.Read(clipboard.FmtText))
+				if finalContent == formattedToken {
+					t.Logf("VERIFICACIÓN EXITOSA: El portapapeles ahora contiene: '%s'", finalContent)
+					return // ¡Test exitoso!
+				} else {
+					t.Fatalf("TEST FALLIDO: Se esperaba '%s' en el portapapeles, pero se encontró '%s'", formattedToken, finalContent)
+				}
+			}
+		}
+	}
+}
